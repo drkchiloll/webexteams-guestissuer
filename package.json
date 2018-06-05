@@ -1,16 +1,32 @@
 {
-  "name": "ts-lib",
+  "name": "webexteams-guestissuer",
   "version": "1.0.0",
   "description": "Typescript Library Builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "build": "node_modules/.bin/tsc",
+    "dev": "node_modules/.bin/tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "typescript",
     "library"
   ],
-  "author": "Anonymous",
-  "license": "MIT"
+  "author": "Sam Womack",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "jsonwebtoken": "^8.2.2",
+    "moment": "^2.22.2",
+    "uniqid": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.20",
+    "@types/jsonwebtoken": "^7.2.7",
+    "@types/node": "^10.3.1",
+    "@types/uniqid": "^4.1.2",
+    "typescript": "^2.9.1"
+  }
 }
