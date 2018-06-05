@@ -1,29 +1,48 @@
-# Example Typescript 2.x Library
+# Webex Teams Guest Issuer Programmatic AuthToken Generator
 
-Simple starter library from June 2017.
-Tutorial can be found at
-[how-to-write-a-typescript-library.com](http://how-to-write-a-typescript-library.com).
+This is a module that issues Webex Teams Authorization Tokens for Guest Issuer App Users that allow Guests to persistently use Webex Teams throught the Teams SDKs and Widgets within your application logic. If you want to generate tokens from the CLI refer to Steve Sfartz repository [here](https://github.com/ObjectIsAdvantag/guestissuer). To use the Guest Issuer Service you must first __have a Webex Teams Paid account__ and create a Guest Issuer Application from the [Webex for Developers portal](https://developer.webex.com/add-guest.html).
 
-Or just browse the code here! Or clone the repo.
-
-# Usage
-
+## Installation
 ```
-git clone https://github.com/bersling/typescript-library-starter.git
+npm install -s webexteams-guestissuer
 ```
 
-then modify whatever you want, then
+## Usage
+```javascript
+const { TeamsGuestIssuer } = require('webexteams-guestissuer');
+const guestIssuer = TeamsGuestIssuer({
+  appId: 'GuestAppId generated from the DEV Portal',
+  appSeceret: 'GuestSecret generated from the DEV Portal
+});
+// Generates a Unique ID for the User
+const guestId = guestIssuer.generateId();
+guestIssuer.generateToken({
+  userid: guestId,
+  user: 'MyGuestUser'
+}).then(success => {
+  // guestIssuer.jwtToken = the Generated JWT for use to obtain AuthToken
+  guestIssuer.retrieveAuthToken()
+    .then(authData => {
+      /**
+       * { token: string, expiresIn: number in ms, expiration: formatted date }
+       */
+      // Uses the people/me Webex Teams Endpoint
+      guestIssuer.teamsGetUser().then(loggedInUser => {})
+    })
+}).catch(error => 'Something Went Wrong');
+```
+
+## Contributing and/or Fork
+
+This module is written using Typescript. Clone this Module to submit PRs or continue development as your own repository.
 
 ```
-tsc
+npm install
+# To Build for PROD
+npm run build
+# Development (watches all ts files in the src directory and builds on change
+npm run dev
 ```
 
-You can check if everything is working like this:
-http://how-to-write-a-typescript-library.com/local-consumer
-
-You can write a test like this:
-http://how-to-write-a-typescript-library.com/unit-testing
-
-And once you're ready, simply change the `name` in the `package.json`
-and publish your brand new cool library. Have fun!
-
+## License
+MIT
