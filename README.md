@@ -12,7 +12,7 @@ npm install -s webexteams-guestissuer
 const { TeamsGuestIssuer } = require('webexteams-guestissuer');
 const guestIssuer = TeamsGuestIssuer({
   appId: 'GuestAppId generated from the DEV Portal',
-  appSeceret: 'GuestSecret generated from the DEV Portal
+  appSeceret: 'GuestSecret generated from the DEV Portal'
 });
 // Generates a Unique ID for the User
 const guestId = guestIssuer.generateId();
