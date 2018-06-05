@@ -44,14 +44,14 @@ const TeamsGuestIssuer = (guestIssuerId: string, guestSecret: string) => {
     jwtToken: null,
     authData: null,
     teamsApi: new TeamsApi(),
-    generateSubject() {
+    generateId() {
       return uniqid();
     },
 
     generateToken({userid, user}) {
       return new Promise((resolve, reject) => {
         const payload = {
-          sub: userid || this.generateSubject(),
+          sub: userid || this.generateId(),
           name: user,
           iss: guestIssuerId,
           exp: Math.round(Date.now() / 1000) + (90*60)
