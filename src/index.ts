@@ -39,16 +39,14 @@ class TeamsApi {
   }
 }
 
-const TeamsGuestIssuer = (guestIssuerId: string, guestSecret: string) => {
+const TeamsGuestIssuer = (guestAppId: string, guestAppSecret: string) => {
   const service: any = {
-    jwtToken: null,
-    authData: null,
     teamsApi: new TeamsApi(),
     generateId() {
       return uniqid();
     },
 
-    generateToken({userid, user}) {
+    generateJwt({userid, user}) {
       return new Promise((resolve, reject) => {
         const payload = {
           sub: userid || this.generateId(),
@@ -63,10 +61,9 @@ const TeamsGuestIssuer = (guestIssuerId: string, guestSecret: string) => {
         }, (e: jwt.JsonWebTokenError, token) => {
           if(e) return reject(e);
           else {
-            this.jwtToken = token;
-            return resolve('SUCCESS');
+            return resolve({success: true, token });
           }
-        })
+        });
       });
     },
 
@@ -74,14 +71,13 @@ const TeamsGuestIssuer = (guestIssuerId: string, guestSecret: string) => {
       return moment().add(expires, 'seconds').format();
     },
 
-    retrieveAuthToken() {
+    retrieveAuthToken(token) {
       return this.teamsApi
-        .getAuthToken(this.jwtToken)
+        .getAuthToken(token)
         .then(authData => {
-          this.authData = authData;
-          this.authData['expiration'] =
+          authData['expiration'] =
             this.tokenExpDate(authData.expiresIn);
-          return this.authData;
+          return authData;
         })
         .catch(e => e);
     },
@@ -90,8 +86,8 @@ const TeamsGuestIssuer = (guestIssuerId: string, guestSecret: string) => {
       return jwt.decode(token, { complete: true });
     },
 
-    teamsGetUser() {
-      return this.teamsApi.getMe(this.authData.token)
+    teamsGetUser(token) {
+      return this.teamsApi.getMe(token)
         .then((resp: any) => resp.data);
     }
   };
