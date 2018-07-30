@@ -18,15 +18,15 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
-    "jsonwebtoken": "^8.2.2",
+    "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
-    "uniqid": "^5.0.2"
+    "uniqid": "^5.0.3"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.20",
-    "@types/jsonwebtoken": "^7.2.7",
-    "@types/node": "^10.3.1",
+    "@types/bluebird": "^3.5.23",
+    "@types/jsonwebtoken": "^7.2.8",
+    "@types/node": "^10.5.4",
     "@types/uniqid": "^4.1.2",
-    "typescript": "^2.9.1"
+    "typescript": "^2.9.2"
   }
 }
