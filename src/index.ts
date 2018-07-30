@@ -51,10 +51,10 @@ const TeamsGuestIssuer = (guestAppId: string, guestAppSecret: string) => {
         const payload = {
           sub: userid || this.generateId(),
           name: user,
-          iss: guestIssuerId,
+          iss: guestAppId,
           exp: Math.round(Date.now() / 1000) + (90*60)
         };
-        const decoded = Buffer.from(guestSecret, 'base64');
+        const decoded = Buffer.from(guestAppSecret, 'base64');
         jwt.sign(payload, decoded, {
           algorithm: 'HS256',
           noTimestamp: true
