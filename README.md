@@ -16,18 +16,18 @@ const guestIssuer = TeamsGuestIssuer({
 });
 // Generates a Unique ID for the User
 const guestId = guestIssuer.generateId();
-guestIssuer.generateToken({
+guestIssuer.generateJwt({
   userid: guestId,
   user: 'MyGuestUser'
-}).then(success => {
+}).then(({ token }) => {
   // guestIssuer.jwtToken = the Generated JWT for use to obtain AuthToken
-  guestIssuer.retrieveAuthToken()
+  guestIssuer.retrieveAuthToken(token)
     .then(authData => {
       /**
        * { token: string, expiresIn: number in ms, expiration: formatted date }
        */
       // Uses the people/me Webex Teams Endpoint
-      guestIssuer.teamsGetUser().then(loggedInUser => {})
+      guestIssuer.teamsGetUser(authData.token).then(loggedInUser => {})
     })
 }).catch(error => 'Something Went Wrong');
 ```
