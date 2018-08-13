@@ -1,6 +1,6 @@
 {
   "name": "webexteams-guestissuer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript Library Builder",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
