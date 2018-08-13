@@ -4,6 +4,13 @@ import * as uniqid from 'uniqid';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import * as moment from 'moment';
 
+export type ReqParams = {
+  url: string;
+  method: string;
+  data?: any;
+  token: string;
+}
+
 class TeamsApi {
   private request: AxiosInstance;
   constructor() {
@@ -35,6 +42,14 @@ class TeamsApi {
       url: '/people/me',
       method: 'get',
       headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+  req({url, method, token, data}) {
+    return this.request({
+      url,
+      method,
+      headers: { Authorization: `Bearer ${token}`},
+      data
     });
   }
 }
@@ -89,6 +104,12 @@ const TeamsGuestIssuer = (guestAppId: string, guestAppSecret: string) => {
     teamsGetUser(token) {
       return this.teamsApi.getMe(token)
         .then((resp: any) => resp.data);
+    },
+
+    genericRequest(params: ReqParams) {
+      return this.teamsApi.req(params)
+        .then((resp: any) => resp.data)
+        .catch(err => err);
     }
   };
   return service;
