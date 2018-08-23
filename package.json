@@ -1,7 +1,7 @@
 {
   "name": "webexteams-guestissuer",
-  "version": "1.0.1",
-  "description": "Typescript Library Builder",
+  "version": "1.0.2",
+  "description": "Programmatic method for Creating Guest and Issuiance of Access Token for Webex Teams Guest Issuer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
