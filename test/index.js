@@ -17,7 +17,7 @@ teamsIssuer.generateJwt(genToken)
   .then(({token}) => {
     return teamsIssuer.retrieveAuthToken(token)
       .then(authData => {
-        teamsIssuer.teamsGetUser(authData.token).then(console.log);
+        teamsIssuer.getGuestDetails(authData.token).then(console.log);
       })
       .catch(console.log);
   })
