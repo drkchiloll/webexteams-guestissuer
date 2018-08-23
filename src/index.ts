@@ -101,7 +101,7 @@ const TeamsGuestIssuer = (guestAppId: string, guestAppSecret: string) => {
       return jwt.decode(token, { complete: true });
     },
 
-    teamsGetUser(token) {
+    getGuestDetails(token) {
       return this.teamsApi.getMe(token)
         .then((resp: any) => resp.data);
     },

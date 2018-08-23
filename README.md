@@ -27,7 +27,9 @@ guestIssuer.generateJwt({
        * { token: string, expiresIn: number in ms, expiration: formatted date }
        */
       // Uses the people/me Webex Teams Endpoint
-      guestIssuer.teamsGetUser(authData.token).then(loggedInUser => {})
+      guestIssuer.getGuestDetails(authData.token).then(loggedInUser => {
+        //{ id, emails, displayName, orgId, type: "appuser", created, avatar }
+      })
     })
 }).catch(error => 'Something Went Wrong');
 ```
