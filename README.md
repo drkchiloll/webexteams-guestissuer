@@ -9,25 +9,28 @@ npm install -s webexteams-guestissuer
 
 ## Usage
 ```javascript
-const { TeamsGuestIssuer } = require('webexteams-guestissuer');
-const guestIssuer = TeamsGuestIssuer({
-  appId: 'GuestAppId generated from the DEV Portal',
-  appSeceret: 'GuestSecret generated from the DEV Portal'
+const { SparkGuest } = require('webexteams-guestissuer');
+const guest = new SparkGuest({
+  id: 'GuestAppId generated from the DEV Portal',
+  secret: 'GuestSecret generated from the DEV Portal'
 });
 // Generates a Unique ID for the User
-const guestId = guestIssuer.generateId();
+const guestId = guest.generateId();
 guestIssuer.generateJwt({
   userid: guestId,
-  user: 'MyGuestUser'
-}).then(({ token }) => {
+  displayName: 'MyGuestUser'
+}).then(jwt => {
   // guestIssuer.jwtToken = the Generated JWT for use to obtain AuthToken
-  guestIssuer.retrieveAuthToken(token)
+  guest.retreiveAccessToken(jwt)
     .then(authData => {
       /**
-       * { token: string, expiresIn: number in ms, expiration: formatted date }
+       * AuthData <Object>
+       * AuthData.token <String>
+       * AuthData.expiresIn <Number>
+       * AuthData.formattedExpiration <UTC Formatted DataTime>
        */
       // Uses the people/me Webex Teams Endpoint
-      guestIssuer.getGuestDetails(authData.token).then(loggedInUser => {
+      guestIssuer.getGuest(authData.token).then(loggedInUser => {
         //{ id, emails, displayName, orgId, type: "appuser", created, avatar }
       })
     })
